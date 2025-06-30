@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ngọc quỳnh 🍰</title>
+  <!-- Google Font: Quicksand -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffe6f0, #fffafc);
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+      padding: 40px;
+      color: #d63384;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      animation: fadeInDown 1.5s ease;
+    }
+
+    .card {
+      background: #fff0f5;
+      border: 3px dashed #ffb6c1;
+      border-radius: 20px;
+      padding: 30px;
+      display: inline-block;
+      box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
+      animation: fadeInUp 2s ease;
+    }
+
+    img {
+      width: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 8px 0;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 1em;
+      color: #999;
+    }
+
+    #toggleMusicBtn {
+      margin-top: 30px;
+      padding: 14px 28px;
+      font-size: 1.1em;
+      background-color: #ff8ab8;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255,138,184,0.4);
+      transition: all 0.3s ease;
+      animation: heartbeat 2s infinite;
+    }
+
+    .heart {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      font-size: 24px;
+      color: #ff69b4;
+      animation: floatUp 2s ease-out forwards;
+    }
+
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+    }
+
+    /* Bong bóng bay */
+    .bubble {
+      position: fixed;
+      bottom: -50px;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,182,193,0.4);
+      border-radius: 50%;
+      animation: rise 8s infinite ease-in;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-1000px) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Hello, I'm Ngọc Quỳnh 🌸</h1>
+  <div class="card">
+    <img src="https://sv1.anhsieuviet.com/2025/06/29/20250629_172541.jpg" alt="Ảnh dễ thương của Bảo Ngọc"/>
+    <p><strong>Sinh năm:</strong> 2005</p>
+    <p><strong>Là một cô bé thích du lịch </strong> 🎂</p>
+    <p><strong>Đang theo đuổi:</strong> Quản trị kinh doanh 🍿</p>
+    <p>💬 "Mỗi ngày đến lớp là một câu chuyện thú vị!"</p>
+  </div>
+
+<div style="margin-top: 40px;">
+    <button id="toggleMusicBtn">🎵 Bật nhạc nhẹ nhàng</button>
+  </div>
+
+  <audio id="bgMusic" preload="auto">
+    <source src="https://raw.githubusercontent.com/nhimcongnghe/musicdata/main/Ph%C3%A9p%20M%C3%A0u%20_%C4%90%C3%A0n%20C%C3%A1%20G%E1%BB%97%20OST_%20_%20Mounter%20x%20MAYDAYs_%20Minh%20T%E1%BB%91c%20_%20Official%20MV_Audio_128k.mp3" type="audio/mpeg">
+    Trình duyệt không hỗ trợ phát nhạc.
+  </audio>
+
+  <script>
+    const btn = document.getElementById('toggleMusicBtn');
+    const music = document.getElementById('bgMusic');
+    let isPlaying = false;
+
+    btn.addEventListener('click', () => {
+      if (!isPlaying) {
+        music.play();
+        btn.innerText = "💗 Đang phát nhạc...";
+        btn.style.backgroundColor = "#c34d94";
+        isPlaying = true;
+        createFloatingHearts();
+      } else {
+        music.pause();
+        music.currentTime = 0;
+        btn.innerText = "🎵 Bật nhạc nhẹ nhàng";
+        btn.style.backgroundColor = "#ff8ab8";
+        isPlaying = false;
+      }
+    });
+
+    function createFloatingHearts() {
+      const interval = setInterval(() => {
+        if (!isPlaying) {
+          clearInterval(interval);
+          return;
+        }
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = `${Math.random() * 100}%`;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+      }, 300);
+    }
+
+    // Bong bóng bay
+    function createBubbles() {
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.width = bubble.style.height = `${Math.random() * 20 + 10}px`;
+        document.body.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 8000);
+      }, 500);
+    }
+
+    createBubbles();
+  </script>
+
+  <footer>🌟 Cảm ơn vì đã ghé thăm thế giới nhỏ của Quỳnh 💗</footer>
+</body>
+</html>
